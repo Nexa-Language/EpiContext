@@ -1,0 +1,563 @@
+======================================================================
+EpiContext Harbor Batch Experiment Runner
+======================================================================
+Agents: ['EpiContext', 'FullContext', 'SlidingWindow', 'MethylationOnly', 'AcetylationOnly']
+Tasks: ['hello-world', 'hello-user', 'hello-workdir', 'hello-multi-step-advanced', 'hello-healthcheck', 'describe-image', 'llm-judge-example', 'reward-kit-example']
+Repetitions: 3
+Total runs: 120
+Estimated time: ~3.0 hours
+======================================================================
+
+[1/120] EpiContext on hello-world (rep 1/3)
+  Elapsed: 0.0min, ETA: 0.0min
+  -> OK
+
+[2/120] EpiContext on hello-world (rep 2/3)
+  Elapsed: 0.1min, ETA: 10.9min
+  -> OK
+
+[3/120] EpiContext on hello-world (rep 3/3)
+  Elapsed: 0.2min, ETA: 10.3min
+  -> OK
+
+[4/120] EpiContext on hello-user (rep 1/3)
+  Elapsed: 0.3min, ETA: 10.2min
+  -> OK
+
+[5/120] EpiContext on hello-user (rep 2/3)
+  Elapsed: 0.3min, ETA: 9.9min
+  -> OK
+  [Saved] 5 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[6/120] EpiContext on hello-user (rep 3/3)
+  Elapsed: 0.4min, ETA: 9.7min
+  -> OK
+
+[7/120] EpiContext on hello-workdir (rep 1/3)
+  Elapsed: 0.5min, ETA: 9.7min
+  -> OK
+
+[8/120] EpiContext on hello-workdir (rep 2/3)
+  Elapsed: 0.6min, ETA: 9.5min
+  -> OK
+
+[9/120] EpiContext on hello-workdir (rep 3/3)
+  Elapsed: 0.7min, ETA: 9.5min
+  -> OK
+
+[10/120] EpiContext on hello-multi-step-advanced (rep 1/3)
+  Elapsed: 0.8min, ETA: 9.3min
+  -> FAIL: No result file found
+  [Saved] 10 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[11/120] EpiContext on hello-multi-step-advanced (rep 2/3)
+  Elapsed: 3.2min, ETA: 35.2min
+  -> FAIL: No result file found
+
+[12/120] EpiContext on hello-multi-step-advanced (rep 3/3)
+  Elapsed: 6.2min, ETA: 61.1min
+  -> FAIL: No result file found
+
+[13/120] EpiContext on hello-healthcheck (rep 1/3)
+  Elapsed: 7.6min, ETA: 68.1min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[14/120] EpiContext on hello-healthcheck (rep 2/3)
+  Elapsed: 8.7min, ETA: 71.5min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[15/120] EpiContext on hello-healthcheck (rep 3/3)
+  Elapsed: 9.1min, ETA: 68.8min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  [Saved] 15 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[16/120] EpiContext on describe-image (rep 1/3)
+  Elapsed: 9.5min, ETA: 66.3min
+  -> OK
+
+[17/120] EpiContext on describe-image (rep 2/3)
+  Elapsed: 14.7min, ETA: 95.3min
+  -> OK
+
+[18/120] EpiContext on describe-image (rep 3/3)
+  Elapsed: 15.9min, ETA: 96.2min
+  -> OK
+
+[19/120] EpiContext on llm-judge-example (rep 1/3)
+  Elapsed: 17.2min, ETA: 97.4min
+  -> FAIL: No result file found
+
+[20/120] EpiContext on llm-judge-example (rep 2/3)
+  Elapsed: 17.3min, ETA: 91.8min
+  -> FAIL: No result file found
+  [Saved] 20 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[21/120] EpiContext on llm-judge-example (rep 3/3)
+  Elapsed: 17.4min, ETA: 86.8min
+  -> FAIL: No result file found
+
+[22/120] EpiContext on reward-kit-example (rep 1/3)
+  Elapsed: 17.4min, ETA: 82.2min
+  -> OK
+
+[23/120] EpiContext on reward-kit-example (rep 2/3)
+  Elapsed: 19.8min, ETA: 88.0min
+  -> OK
+
+[24/120] EpiContext on reward-kit-example (rep 3/3)
+  Elapsed: 22.8min, ETA: 96.0min
+  -> OK
+
+[25/120] FullContext on hello-world (rep 1/3)
+  Elapsed: 25.1min, ETA: 100.3min
+  -> OK
+  [Saved] 25 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[26/120] FullContext on hello-world (rep 2/3)
+  Elapsed: 25.2min, ETA: 95.6min
+  -> OK
+
+[27/120] FullContext on hello-world (rep 3/3)
+  Elapsed: 25.2min, ETA: 91.3min
+  -> OK
+
+[28/120] FullContext on hello-user (rep 1/3)
+  Elapsed: 25.3min, ETA: 87.3min
+  -> OK
+
+[29/120] FullContext on hello-user (rep 2/3)
+  Elapsed: 25.4min, ETA: 83.5min
+  -> OK
+
+[30/120] FullContext on hello-user (rep 3/3)
+  Elapsed: 25.5min, ETA: 80.0min
+  -> OK
+  [Saved] 30 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[31/120] FullContext on hello-workdir (rep 1/3)
+  Elapsed: 25.6min, ETA: 76.8min
+  -> OK
+
+[32/120] FullContext on hello-workdir (rep 2/3)
+  Elapsed: 25.7min, ETA: 73.7min
+  -> OK
+
+[33/120] FullContext on hello-workdir (rep 3/3)
+  Elapsed: 25.7min, ETA: 70.8min
+  -> OK
+
+[34/120] FullContext on hello-multi-step-advanced (rep 1/3)
+  Elapsed: 25.8min, ETA: 68.1min
+  -> FAIL: No result file found
+
+[35/120] FullContext on hello-multi-step-advanced (rep 2/3)
+  Elapsed: 33.8min, ETA: 85.6min
+  -> FAIL: No result file found
+  [Saved] 35 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[36/120] FullContext on hello-multi-step-advanced (rep 3/3)
+  Elapsed: 40.8min, ETA: 99.1min
+  -> FAIL: No result file found
+
+[37/120] FullContext on hello-healthcheck (rep 1/3)
+  Elapsed: 43.6min, ETA: 101.7min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[38/120] FullContext on hello-healthcheck (rep 2/3)
+  Elapsed: 44.0min, ETA: 98.7min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[39/120] FullContext on hello-healthcheck (rep 3/3)
+  Elapsed: 44.4min, ETA: 95.9min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[40/120] FullContext on describe-image (rep 1/3)
+  Elapsed: 44.8min, ETA: 93.1min
+  -> OK
+  [Saved] 40 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[41/120] FullContext on describe-image (rep 2/3)
+  Elapsed: 50.1min, ETA: 100.1min
+  -> OK
+
+[42/120] FullContext on describe-image (rep 3/3)
+  Elapsed: 54.3min, ETA: 104.6min
+  -> OK
+
+[43/120] FullContext on llm-judge-example (rep 1/3)
+  Elapsed: 59.1min, ETA: 109.7min
+  -> FAIL: No result file found
+
+[44/120] FullContext on llm-judge-example (rep 2/3)
+  Elapsed: 59.2min, ETA: 105.9min
+  -> FAIL: No result file found
+
+[45/120] FullContext on llm-judge-example (rep 3/3)
+  Elapsed: 59.2min, ETA: 102.3min
+  -> FAIL: No result file found
+  [Saved] 45 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[46/120] FullContext on reward-kit-example (rep 1/3)
+  Elapsed: 59.3min, ETA: 98.9min
+  -> OK
+
+[47/120] FullContext on reward-kit-example (rep 2/3)
+  Elapsed: 60.5min, ETA: 97.3min
+  -> OK
+
+[48/120] FullContext on reward-kit-example (rep 3/3)
+  Elapsed: 61.6min, ETA: 95.6min
+  -> OK
+
+[49/120] SlidingWindow on hello-world (rep 1/3)
+  Elapsed: 62.7min, ETA: 94.0min
+  -> OK
+
+[50/120] SlidingWindow on hello-world (rep 2/3)
+  Elapsed: 62.8min, ETA: 91.0min
+  -> OK
+  [Saved] 50 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[51/120] SlidingWindow on hello-world (rep 3/3)
+  Elapsed: 62.9min, ETA: 88.0min
+  -> OK
+
+[52/120] SlidingWindow on hello-user (rep 1/3)
+  Elapsed: 63.0min, ETA: 85.2min
+  -> OK
+
+[53/120] SlidingWindow on hello-user (rep 2/3)
+  Elapsed: 63.1min, ETA: 82.5min
+  -> OK
+
+[54/120] SlidingWindow on hello-user (rep 3/3)
+  Elapsed: 63.2min, ETA: 79.8min
+  -> OK
+
+[55/120] SlidingWindow on hello-workdir (rep 1/3)
+  Elapsed: 63.3min, ETA: 77.3min
+  -> OK
+  [Saved] 55 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[56/120] SlidingWindow on hello-workdir (rep 2/3)
+  Elapsed: 63.3min, ETA: 74.8min
+  -> OK
+
+[57/120] SlidingWindow on hello-workdir (rep 3/3)
+  Elapsed: 63.4min, ETA: 72.4min
+  -> OK
+
+[58/120] SlidingWindow on hello-multi-step-advanced (rep 1/3)
+  Elapsed: 63.4min, ETA: 70.1min
+  -> FAIL: No result file found
+
+[59/120] SlidingWindow on hello-multi-step-advanced (rep 2/3)
+  Elapsed: 65.8min, ETA: 70.3min
+  -> FAIL: No result file found
+
+[60/120] SlidingWindow on hello-multi-step-advanced (rep 3/3)
+  Elapsed: 67.2min, ETA: 69.5min
+  -> FAIL: No result file found
+  [Saved] 60 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[61/120] SlidingWindow on hello-healthcheck (rep 1/3)
+  Elapsed: 68.6min, ETA: 68.6min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[62/120] SlidingWindow on hello-healthcheck (rep 2/3)
+  Elapsed: 69.0min, ETA: 66.7min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[63/120] SlidingWindow on hello-healthcheck (rep 3/3)
+  Elapsed: 69.4min, ETA: 65.0min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[64/120] SlidingWindow on describe-image (rep 1/3)
+  Elapsed: 69.8min, ETA: 63.2min
+  -> OK
+
+[65/120] SlidingWindow on describe-image (rep 2/3)
+  Elapsed: 71.4min, ETA: 62.4min
+  -> OK
+  [Saved] 65 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[66/120] SlidingWindow on describe-image (rep 3/3)
+  Elapsed: 72.9min, ETA: 61.6min
+  -> OK
+
+[67/120] SlidingWindow on llm-judge-example (rep 1/3)
+  Elapsed: 76.9min, ETA: 62.9min
+  -> FAIL: No result file found
+
+[68/120] SlidingWindow on llm-judge-example (rep 2/3)
+  Elapsed: 77.0min, ETA: 60.9min
+  -> FAIL: No result file found
+
+[69/120] SlidingWindow on llm-judge-example (rep 3/3)
+  Elapsed: 77.1min, ETA: 59.0min
+  -> FAIL: No result file found
+
+[70/120] SlidingWindow on reward-kit-example (rep 1/3)
+  Elapsed: 77.2min, ETA: 57.0min
+  -> OK
+  [Saved] 70 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[71/120] SlidingWindow on reward-kit-example (rep 2/3)
+  Elapsed: 78.4min, ETA: 56.0min
+  -> OK
+
+[72/120] SlidingWindow on reward-kit-example (rep 3/3)
+  Elapsed: 79.5min, ETA: 54.9min
+  -> OK
+
+[73/120] MethylationOnly on hello-world (rep 1/3)
+  Elapsed: 80.7min, ETA: 53.8min
+  -> OK
+
+[74/120] MethylationOnly on hello-world (rep 2/3)
+  Elapsed: 80.8min, ETA: 52.0min
+  -> OK
+
+[75/120] MethylationOnly on hello-world (rep 3/3)
+  Elapsed: 80.9min, ETA: 50.3min
+  -> OK
+  [Saved] 75 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[76/120] MethylationOnly on hello-user (rep 1/3)
+  Elapsed: 81.0min, ETA: 48.6min
+  -> OK
+
+[77/120] MethylationOnly on hello-user (rep 2/3)
+  Elapsed: 81.1min, ETA: 46.9min
+  -> OK
+
+[78/120] MethylationOnly on hello-user (rep 3/3)
+  Elapsed: 81.2min, ETA: 45.3min
+  -> OK
+
+[79/120] MethylationOnly on hello-workdir (rep 1/3)
+  Elapsed: 81.2min, ETA: 43.7min
+  -> OK
+
+[80/120] MethylationOnly on hello-workdir (rep 2/3)
+  Elapsed: 81.3min, ETA: 42.2min
+  -> OK
+  [Saved] 80 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[81/120] MethylationOnly on hello-workdir (rep 3/3)
+  Elapsed: 81.4min, ETA: 40.7min
+  -> OK
+
+[82/120] MethylationOnly on hello-multi-step-advanced (rep 1/3)
+  Elapsed: 81.5min, ETA: 39.3min
+  -> FAIL: No result file found
+
+[83/120] MethylationOnly on hello-multi-step-advanced (rep 2/3)
+  Elapsed: 84.6min, ETA: 39.2min
+  -> FAIL: No result file found
+
+[84/120] MethylationOnly on hello-multi-step-advanced (rep 3/3)
+  Elapsed: 86.1min, ETA: 38.4min
+  -> FAIL: No result file found
+
+[85/120] MethylationOnly on hello-healthcheck (rep 1/3)
+  Elapsed: 87.8min, ETA: 37.6min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  [Saved] 85 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[86/120] MethylationOnly on hello-healthcheck (rep 2/3)
+  Elapsed: 88.3min, ETA: 36.4min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[87/120] MethylationOnly on hello-healthcheck (rep 3/3)
+  Elapsed: 88.9min, ETA: 35.1min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[88/120] MethylationOnly on describe-image (rep 1/3)
+  Elapsed: 89.4min, ETA: 33.9min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[89/120] MethylationOnly on describe-image (rep 2/3)
+  Elapsed: 89.9min, ETA: 32.7min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[90/120] MethylationOnly on describe-image (rep 3/3)
+  Elapsed: 90.5min, ETA: 31.5min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  [Saved] 90 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[91/120] MethylationOnly on llm-judge-example (rep 1/3)
+  Elapsed: 91.0min, ETA: 30.3min
+  -> FAIL: No result file found
+
+[92/120] MethylationOnly on llm-judge-example (rep 2/3)
+  Elapsed: 91.1min, ETA: 29.0min
+  -> FAIL: No result file found
+
+[93/120] MethylationOnly on llm-judge-example (rep 3/3)
+  Elapsed: 91.2min, ETA: 27.7min
+  -> FAIL: No result file found
+
+[94/120] MethylationOnly on reward-kit-example (rep 1/3)
+  Elapsed: 91.3min, ETA: 26.5min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[95/120] MethylationOnly on reward-kit-example (rep 2/3)
+  Elapsed: 92.7min, ETA: 25.6min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  [Saved] 95 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[96/120] MethylationOnly on reward-kit-example (rep 3/3)
+  Elapsed: 93.2min, ETA: 24.5min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[97/120] AcetylationOnly on hello-world (rep 1/3)
+  Elapsed: 93.7min, ETA: 23.4min
+  -> OK
+
+[98/120] AcetylationOnly on hello-world (rep 2/3)
+  Elapsed: 93.8min, ETA: 22.2min
+  -> OK
+
+[99/120] AcetylationOnly on hello-world (rep 3/3)
+  Elapsed: 93.9min, ETA: 21.1min
+  -> OK
+
+[100/120] AcetylationOnly on hello-user (rep 1/3)
+  Elapsed: 94.0min, ETA: 19.9min
+  -> OK
+  [Saved] 100 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[101/120] AcetylationOnly on hello-user (rep 2/3)
+  Elapsed: 94.1min, ETA: 18.8min
+  -> OK
+
+[102/120] AcetylationOnly on hello-user (rep 3/3)
+  Elapsed: 94.2min, ETA: 17.7min
+  -> OK
+
+[103/120] AcetylationOnly on hello-workdir (rep 1/3)
+  Elapsed: 94.2min, ETA: 16.6min
+  -> OK
+
+[104/120] AcetylationOnly on hello-workdir (rep 2/3)
+  Elapsed: 94.3min, ETA: 15.6min
+  -> OK
+
+[105/120] AcetylationOnly on hello-workdir (rep 3/3)
+  Elapsed: 94.4min, ETA: 14.5min
+  -> OK
+  [Saved] 105 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[106/120] AcetylationOnly on hello-multi-step-advanced (rep 1/3)
+  Elapsed: 94.5min, ETA: 13.5min
+  -> FAIL: No result file found
+
+[107/120] AcetylationOnly on hello-multi-step-advanced (rep 2/3)
+  Elapsed: 97.5min, ETA: 12.9min
+  -> FAIL: No result file found
+
+[108/120] AcetylationOnly on hello-multi-step-advanced (rep 3/3)
+  Elapsed: 99.3min, ETA: 12.1min
+  -> FAIL: No result file found
+
+[109/120] AcetylationOnly on hello-healthcheck (rep 1/3)
+  Elapsed: 101.9min, ETA: 11.3min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[110/120] AcetylationOnly on hello-healthcheck (rep 2/3)
+  Elapsed: 102.3min, ETA: 10.3min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  [Saved] 110 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[111/120] AcetylationOnly on hello-healthcheck (rep 3/3)
+  Elapsed: 102.8min, ETA: 9.3min
+  -> FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+
+[112/120] AcetylationOnly on describe-image (rep 1/3)
+  Elapsed: 103.2min, ETA: 8.4min
+  -> OK
+
+[113/120] AcetylationOnly on describe-image (rep 2/3)
+  Elapsed: 107.7min, ETA: 7.7min
+  -> OK
+
+[114/120] AcetylationOnly on describe-image (rep 3/3)
+  Elapsed: 111.6min, ETA: 6.9min
+  -> OK
+
+[115/120] AcetylationOnly on llm-judge-example (rep 1/3)
+  Elapsed: 115.6min, ETA: 6.1min
+  -> FAIL: No result file found
+  [Saved] 115 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+[116/120] AcetylationOnly on llm-judge-example (rep 2/3)
+  Elapsed: 115.7min, ETA: 5.0min
+  -> FAIL: No result file found
+
+[117/120] AcetylationOnly on llm-judge-example (rep 3/3)
+  Elapsed: 115.8min, ETA: 4.0min
+  -> FAIL: No result file found
+
+[118/120] AcetylationOnly on reward-kit-example (rep 1/3)
+  Elapsed: 115.9min, ETA: 3.0min
+  -> OK
+
+[119/120] AcetylationOnly on reward-kit-example (rep 2/3)
+  Elapsed: 117.2min, ETA: 2.0min
+  -> OK
+
+[120/120] AcetylationOnly on reward-kit-example (rep 3/3)
+  Elapsed: 118.2min, ETA: 1.0min
+  -> OK
+  [Saved] 120 results to /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments/intermediate_results.json
+
+======================================================================
+EpiContext Harbor Experiment Report
+======================================================================
+Generated: 2026-05-12 12:40:02
+Total runs: 120
+Successful: 69
+Failed: 51
+
+----------------------------------------------------------------------
+Agent Comparison
+----------------------------------------------------------------------
+Agent                   N   AvgTurns   AvgTime(s)   AvgInTok  AvgOutTok   AvgCalls
+----------------------------------------------------------------------
+EpiContext             15       12.5         61.6    13790.9     3350.7       12.5
+FullContext            15       10.6         69.6    11979.9     2581.3       10.6
+SlidingWindow          15        8.7         42.3     4664.6     1801.0        8.7
+MethylationOnly         9       10.0         31.7     5918.7     1854.0       10.0
+AcetylationOnly        15       10.6         63.2    11654.0     2851.5       10.6
+
+----------------------------------------------------------------------
+Statistical Tests
+----------------------------------------------------------------------
+  epi_vs_full_turns: t=1.833, p=0.0881 (not significant)
+  epi_vs_full_input_tokens: t=0.909, p=0.3787 (not significant)
+
+======================================================================
+
+Results saved to: /root/proj/papers/EXPERIMENT/EpiContext/code/results/harbor_experiments

@@ -1,0 +1,172 @@
+需要重试: 51 个失败
+当前成功: 69/120
+
+[1/51] EpiContext / hello-multi-step-advanced / rep0 ... OK! turns=24 tok=16260
+[2/51] EpiContext / hello-multi-step-advanced / rep1 ... OK! turns=24 tok=16193
+[3/51] EpiContext / hello-multi-step-advanced / rep2 ... OK! turns=24 tok=16193
+[4/51] EpiContext / hello-healthcheck / rep0 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[5/51] EpiContext / hello-healthcheck / rep1 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  --- Progress: 3/5 fixed, 72/120 total OK ---
+[6/51] EpiContext / hello-healthcheck / rep2 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[7/51] EpiContext / llm-judge-example / rep0 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[8/51] EpiContext / llm-judge-example / rep1 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[9/51] EpiContext / llm-judge-example / rep2 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[10/51] FullContext / hello-multi-step-advanced / rep0 ... OK! turns=21 tok=11570
+  --- Progress: 4/10 fixed, 73/120 total OK ---
+[11/51] FullContext / hello-multi-step-advanced / rep1 ... OK! turns=21 tok=11570
+[12/51] FullContext / hello-multi-step-advanced / rep2 ... OK! turns=21 tok=11570
+[13/51] FullContext / hello-healthcheck / rep0 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[14/51] FullContext / hello-healthcheck / rep1 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[15/51] FullContext / hello-healthcheck / rep2 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+  --- Progress: 6/15 fixed, 75/120 total OK ---
+[16/51] FullContext / llm-judge-example / rep0 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[17/51] FullContext / llm-judge-example / rep1 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[18/51] FullContext / llm-judge-example / rep2 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[19/51] SlidingWindow / hello-multi-step-advanced / rep0 ... OK! turns=21 tok=12495
+[20/51] SlidingWindow / hello-multi-step-advanced / rep1 ... OK! turns=21 tok=12513
+  --- Progress: 8/20 fixed, 77/120 total OK ---
+[21/51] SlidingWindow / hello-multi-step-advanced / rep2 ... OK! turns=21 tok=12499
+[22/51] SlidingWindow / hello-healthcheck / rep0 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[23/51] SlidingWindow / hello-healthcheck / rep1 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[24/51] SlidingWindow / hello-healthcheck / rep2 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[25/51] SlidingWindow / llm-judge-example / rep0 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+  --- Progress: 9/25 fixed, 78/120 total OK ---
+[26/51] SlidingWindow / llm-judge-example / rep1 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[27/51] SlidingWindow / llm-judge-example / rep2 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[28/51] MethylationOnly / hello-multi-step-advanced / rep0 ... OK! turns=20 tok=11189
+[29/51] MethylationOnly / hello-multi-step-advanced / rep1 ... OK! turns=20 tok=11189
+[30/51] MethylationOnly / hello-multi-step-advanced / rep2 ... OK! turns=20 tok=11189
+  --- Progress: 12/30 fixed, 81/120 total OK ---
+[31/51] MethylationOnly / hello-healthcheck / rep0 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[32/51] MethylationOnly / hello-healthcheck / rep1 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[33/51] MethylationOnly / hello-healthcheck / rep2 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[34/51] MethylationOnly / describe-image / rep0 ... OK! turns=5 tok=1951
+[35/51] MethylationOnly / describe-image / rep1 ... OK! turns=5 tok=1951
+  --- Progress: 14/35 fixed, 83/120 total OK ---
+[36/51] MethylationOnly / describe-image / rep2 ... OK! turns=5 tok=1951
+[37/51] MethylationOnly / llm-judge-example / rep0 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[38/51] MethylationOnly / llm-judge-example / rep1 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[39/51] MethylationOnly / llm-judge-example / rep2 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[40/51] MethylationOnly / reward-kit-example / rep0 ... OK! turns=19 tok=26509
+  --- Progress: 16/40 fixed, 85/120 total OK ---
+[41/51] MethylationOnly / reward-kit-example / rep1 ... OK! turns=19 tok=26509
+[42/51] MethylationOnly / reward-kit-example / rep2 ... OK! turns=19 tok=26509
+[43/51] AcetylationOnly / hello-multi-step-advanced / rep0 ... OK! turns=19 tok=11610
+[44/51] AcetylationOnly / hello-multi-step-advanced / rep1 ... OK! turns=19 tok=11610
+[45/51] AcetylationOnly / hello-multi-step-advanced / rep2 ... OK! turns=19 tok=11610
+  --- Progress: 21/45 fixed, 90/120 total OK ---
+[46/51] AcetylationOnly / hello-healthcheck / rep0 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[47/51] AcetylationOnly / hello-healthcheck / rep1 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[48/51] AcetylationOnly / hello-healthcheck / rep2 ... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 2/3, waiting 60s)... FAIL: Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): Traceback (most recent call last):
+  File "/root/proj/papers/EXPERIMENT/EpiConte
+[49/51] AcetylationOnly / llm-judge-example / rep0 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+[50/51] AcetylationOnly / llm-judge-example / rep1 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+  --- Progress: 21/50 fixed, 90/120 total OK ---
+[51/51] AcetylationOnly / llm-judge-example / rep2 ... FAIL: No result or exception file
+(retry 2/3, waiting 60s)... FAIL: No result or exception file
+(retry 3/3, waiting 90s)... FAIL (after 3 attempts): No result or exception file
+
+重试完成: 21/51 修复
+最终成功: 90/120

@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[submission]{colm2026_conference}
+
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{multirow}
+\usepackage{amsthm}
+\usepackage{lineno}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes, calc, fit, backgrounds}
+
+\definecolor{darkblue}{rgb}{0, 0, 0.5}
+\hypersetup{colorlinks=true, citecolor=darkblue, linkcolor=darkblue, urlcolor=darkblue}
+
+\title{\textbf{EpiContext: Epigenetic Context Evolution for Efficient Long-Horizon Agent Reasoning}}
+
+\author{Anonymous Authors \\
+Anonymous Institution \\
+\texttt{anonymous@anonymous.org}}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+% Custom commands
+\newcommand{\EpiContext}{\textsc{EpiContext}}
+\newcommand{\ReAct}{\textsc{ReAct}}
+\newcommand{\CoT}{\textsc{CoT}}
+\newcommand{\MemGPT}{\textsc{MemGPT}}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\ifcolmsubmission
+\linenumbers
+\fi
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/methodology}
+\input{sections/experiments}
+\input{sections/discussion}
+
+\section*{Acknowledgments}
+This work was supported by anonymous funding.
+
+\bibliography{references}
+\bibliographystyle{colm2026_conference}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

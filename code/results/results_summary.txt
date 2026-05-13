@@ -1,0 +1,34 @@
+======================================================================
+EpiContext Experiment Results Summary
+======================================================================
+
+Main Comparison:
+----------------------------------------------------------------------
+Method                          Success     Tokens    Turns    Fitness
+----------------------------------------------------------------------
+agentbench_AutoTool               0.000     7000.0      5.0     0.0000
+agentbench_EpiContext             0.000     1701.7      5.0    -0.0170
+agentbench_Full-Context           0.000    10000.0      5.0     0.0000
+agentbench_MemGPT                 0.000     6000.0      5.0     0.0000
+agentbench_ReAct                  0.000     8500.0      5.0     0.0000
+agentbench_Reflexion              0.000     9000.0      5.0     0.0000
+alfworld_AutoTool                 0.000     7000.0      5.0     0.0000
+alfworld_EpiContext               0.000     1620.9      5.0    -0.0162
+alfworld_Full-Context             0.000    10000.0      5.0     0.0000
+alfworld_MemGPT                   0.000     6000.0      5.0     0.0000
+alfworld_ReAct                    0.000     8500.0      5.0     0.0000
+alfworld_Reflexion                0.000     9000.0      5.0     0.0000
+swebench_AutoTool                 1.000     4200.0      3.0     1.0000
+swebench_EpiContext               1.000     1780.0      3.0     1.9351
+swebench_Full-Context             1.000     6000.0      3.0     1.0000
+swebench_MemGPT                   1.000     3600.0      3.0     1.0000
+swebench_ReAct                    1.000     5100.0      3.0     1.0000
+swebench_Reflexion                1.000     5400.0      3.0     1.0000
+webarena_AutoTool                 0.000     7840.0      5.6     0.1000
+webarena_EpiContext               0.000     2094.9      5.6     0.2583
+webarena_Full-Context             0.000    11200.0      5.6     0.1000
+webarena_MemGPT                   0.000     6720.0      5.6     0.1000
+webarena_ReAct                    0.000     9520.0      5.6     0.1000
+webarena_Reflexion                0.000    10080.0      5.6     0.1000
+
+Total runtime: 1.4s
