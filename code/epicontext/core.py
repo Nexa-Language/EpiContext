@@ -521,18 +521,26 @@ class EpigeneticOperators:
         if not mem_nodes:
             return []
 
-        # 计算相关性并排序
+        # 计算相关性并排序: 综合 relevance 与已有 epigenetic_tag
+        # 这样 _evolutionary_update 调控的 tag 才会真正传导到下一轮的
+        # 记忆选择, 而不是被纯 relevance 完全覆盖。
         scored = []
         for node in mem_nodes:
             relevance = self._compute_text_relevance(node.content, current_task)
-            scored.append((relevance, node))
+            # 综合得分: relevance 主导, tag 加成 (上限 1.0)
+            score = relevance + 0.5 * node.epigenetic_tag
+            scored.append((score, relevance, node))
 
         scored.sort(key=lambda x: x[0], reverse=True)
 
         # 激活top-k
         activated = []
-        for relevance, node in scored[:max_memories]:
-            node.epigenetic_tag = min(1.0, node.epigenetic_tag + 0.3)
+        for _, relevance, node in scored[:max_memories]:
+            # 用一个较温和的增量, 避免每轮粗暴覆盖 _evolutionary_update
+            # 调控的 tag (尤其是 logistic 模式下的密度调制)。
+            # 增量与 relevance 挂钩: 越相关, 上调越多。
+            bump = 0.1 + 0.1 * float(relevance)
+            node.epigenetic_tag = min(1.0, node.epigenetic_tag + bump)
             activated.append(node.node_id)
 
         return activated
@@ -864,6 +872,10 @@ class EpiContextRouter:
         methylation_threshold: int = 20,
         max_active_nodes: int = 50,
         error_threshold: int = 3,
+        evolution_mode: str = 'logistic',
+        logistic_r: float = 0.25,
+        fitness_midpoint: float = 0.5,
+        fitness_slope: float = 4.0,
     ):
         """
         Args:
@@ -871,8 +883,15 @@ class EpiContextRouter:
             beta: 适应度函数 - Token惩罚权重
             gamma: 适应度函数 - 信息密度权重
             methylation_threshold: 触发甲基化的活跃节点数阈值
-            max_active_nodes: 最大活跃节点数
+            max_active_nodes: 最大活跃节点数 (生态学承载力 K)
             error_threshold: 触发交叉重组的连续错误数
+            evolution_mode: 进化更新策略
+                - 'legacy': 旧版阶梯式 (fitness > 0.5 → 强化, 否则扩散)
+                - 'logistic': 生态学 logistic 风格, 引入承载力 K 与
+                  环境信号 s(fitness), 中等密度时增长最快, 高密度自抑制
+            logistic_r: logistic 模式下的内禀增长率 r (步长基准)
+            fitness_midpoint: 将 fitness 映射成环境信号 s ∈ [-1, 1] 时的拐点
+            fitness_slope: 上述映射的陡峭度
         """
         self.graph = ContextGraph()
         self.operators = EpigeneticOperators(self.graph)
@@ -882,11 +901,25 @@ class EpiContextRouter:
         self.max_active_nodes = max_active_nodes
         self.error_threshold = error_threshold
 
+        # 进化更新参数
+        if evolution_mode not in ('legacy', 'logistic'):
+            raise ValueError(
+                f"evolution_mode must be 'legacy' or 'logistic', got {evolution_mode!r}"
+            )
+        self.evolution_mode = evolution_mode
+        self.logistic_r = logistic_r
+        self.fitness_midpoint = fitness_midpoint
+        self.fitness_slope = fitness_slope
+
         # 状态追踪
         self.current_turn: int = 0
         self.consecutive_errors: int = 0
         self.total_tokens_saved: int = 0
         self.turn_history: List[Dict[str, Any]] = []
+
+        # logistic 模式下的 fitness 滚动归一化窗口
+        self._fitness_window: List[float] = []
+        self._fitness_window_size: int = 32
 
         # 工具注册表
         self._tool_registry: List[Dict[str, Any]] = []
@@ -1026,7 +1059,32 @@ class EpiContextRouter:
         active_tool_names = [t.get('name', '') for t in active_tools]
 
         # 记忆乙酰化
-        active_memory_ids = self.operators.acetylate_memories(current_task)
+        # logistic 模式: 用 "环境承载力 - 当前密度" 动态调整记忆预算,
+        # 模拟生态学中 K-r 选择: 拥挤时少取, 空旷时多取。
+        mem_budget: Optional[int] = None
+        if self.evolution_mode == 'logistic' and self._fitness_window:
+            recent = self._fitness_window
+            mu = sum(recent) / len(recent)
+            if len(recent) >= 4:
+                var = sum((x - mu) ** 2 for x in recent) / len(recent)
+                sigma = math.sqrt(var) if var > 1e-9 else 1.0
+                z_recent = (recent[-1] - mu) / sigma
+            else:
+                z_recent = 0.0
+            current_active = len(self.graph.get_active_nodes())
+            density = current_active / max(1, self.max_active_nodes)
+            base_budget = 20
+            # logistic 调控: budget = K * (1 - density) 风格 (拥塞 -> 缩, 空旷 -> 扩)
+            # 同时近期 fitness 越高 (z_recent>0) 越收, 越差越扩 (探索)
+            # 强度比之前更激进, 让差异传到 token
+            adjust = -12.0 * z_recent - 10.0 * max(0.0, density - 0.5)
+            mem_budget = int(round(base_budget + adjust))
+            mem_budget = max(3, min(40, mem_budget))
+            active_memory_ids = self.operators.acetylate_memories(
+                current_task, max_memories=mem_budget
+            )
+        else:
+            active_memory_ids = self.operators.acetylate_memories(current_task)
 
         # 检查是否需要甲基化
         active_nodes = self.graph.get_active_nodes()
@@ -1054,6 +1112,7 @@ class EpiContextRouter:
             'silenced_memory_ranges': silenced_ranges,
             'active_memory_ids': active_memory_ids,
             'crossover_triggered': self.consecutive_errors >= self.error_threshold,
+            'mem_budget': mem_budget,
         }
 
     def _assemble_payload(
@@ -1088,14 +1147,34 @@ class EpiContextRouter:
                     'type': node.node_type,
                     'content': node.content,
                     'tag': node.epigenetic_tag,
+                    '_node_id': node.node_id,
                 })
+
+        # === Memory 截断: 按 epigenetic_tag 加权排序后取 top-K ===
+        # 这样 _evolutionary_update 对 tag 的调整才会真正影响最终 payload。
+        # 旧逻辑 memory_content[-20:] 按时间裁剪, 不依赖 tag。新逻辑兼容:
+        #   - 同 tag 时按 node_id (≈时间) 保留更新的, 维持时序合理性
+        #   - 不同 tag 时优先保留高 tag (被进化更新强化的)
+        # logistic 模式下 mask['mem_budget'] 由密度+fitness 动态决定。
+        memory_budget = mask.get('mem_budget')
+        if memory_budget is None:
+            memory_budget = min(20, self.max_active_nodes)
+        memory_content.sort(
+            key=lambda m: (m['tag'], m['_node_id']),
+            reverse=True,
+        )
+        memory_content = memory_content[:memory_budget]
+        # 输出时按 node_id 升序还原时间顺序, 并去掉内部字段
+        memory_content.sort(key=lambda m: m['_node_id'])
+        for m in memory_content:
+            m.pop('_node_id', None)
 
         # 组装
         payload = {
             'system': system_content,
             'task': current_task,
             'tools': mask.get('active_tools', []),
-            'memory': memory_content[-20:],  # 最多保留20条记忆
+            'memory': memory_content,
             'metadata': {
                 'turn': self.current_turn,
                 'active_node_count': len(active_nodes),
@@ -1120,17 +1199,176 @@ class EpiContextRouter:
     def _evolutionary_update(
         self, fitness_score: float, mask: Dict[str, Any]
     ) -> None:
-        """进化更新: 根据适应度调整进化策略。
+        """进化更新: 根据适应度调整每个节点的表观遗传标签 (epigenetic_tag)。
 
-        高适应度 → 强化当前掩码策略
-        低适应度 → 扩大激活范围 (降低甲基化程度)
+        提供两种风格:
+
+        * ``legacy`` (旧版阶梯式):
+            - fitness > 0.5: 给当前活跃工具 +0.1
+            - 否则: 给一批低 tag 的记忆节点 +0.3 (扩散探索)
+
+        * ``logistic`` (生态学风格, 推荐):
+            类比种群增长方程 dN/dt = r * N * (1 - N/K),
+            将 epigenetic_tag 视作一个节点的 "种群密度",
+            max_active_nodes 视作环境承载力 K。
+            通过 fitness 映射出环境信号 s ∈ [-1, 1]:
+              - s > 0: 强化当前掩码内活跃节点 (正向选择)
+              - s < 0: 扰动后释放生态位, 让低 tag 节点缓慢回升 (探索)
+            增长率受 (1 - N/K) 调制, 因此:
+              - 当总活跃数远小于 K 时, 增长几乎与 r 相等 (自由扩张)
+              - 当总活跃数接近 K 时, 增长趋近 0 (自抑制, 拥塞)
+              - 中段密度时增长最快 (S 形曲线)
+            这样既能避免旧版 "fitness > 0.5 就一刀切 +0.1" 的暴增,
+            也能在高密度时主动让位, 减少冗余 token。
         """
+        if self.evolution_mode == 'legacy':
+            self._evolutionary_update_legacy(fitness_score, mask)
+        else:
+            self._evolutionary_update_logistic(fitness_score, mask)
+
+    def _evolutionary_update_legacy(
+        self, fitness_score: float, mask: Dict[str, Any]
+    ) -> None:
+        """旧版阶梯式进化更新 (保留作为对照基线)。"""
         if fitness_score > 0.5:
             # 高适应度: 强化当前策略
-            # 提高活跃工具的权重
             for tool_name in mask.get('active_tools', []):
                 for node in self.graph.get_nodes_by_type('tool_schema'):
                     if node.metadata.get('tool_name') == tool_name:
+                        node.epigenetic_tag = min(1.0, node.epigenetic_tag + 0.1)
+        else:
+            # 低适应度: 扩大激活范围
+            inactive_mem = [
+                n for n in self.graph.nodes.values()
+                if n.node_type in ('observation', 'thought')
+                and n.epigenetic_tag < 0.3
+            ]
+            for node in inactive_mem[:5]:
+                node.epigenetic_tag = min(1.0, node.epigenetic_tag + 0.3)
+
+    def _evolutionary_update_logistic(
+        self, fitness_score: float, mask: Dict[str, Any]
+    ) -> None:
+        """生态学 logistic 风格进化更新。
+
+        每条节点的 tag 更新公式 (离散化):
+
+            Δw = r * s(fitness) * w * (1 - N / K)              # 正向 (强化)
+            Δw = r * |s(fitness)| * (1 - w) * (1 - N / K)      # 反向 (探索)
+
+        其中:
+            r = logistic_r                          # 内禀增长率
+            s = tanh(slope * (z(fitness) - midpoint_z))
+                                                    # 环境信号 ∈ [-1, 1]
+                                                    # 用滚动 z-score 归一化,
+                                                    # 避免依赖 fitness 绝对量纲
+            w = node.epigenetic_tag
+            N = 当前活跃节点数, K = max_active_nodes
+
+        当 N >= K (拥塞) 时, 进入 "再分配" 模式:
+            高 tag 节点继续小幅强化, 低 tag 节点温和衰减,
+            模拟生态系统中竞争失败者被淘汰的过程,
+            从而把 token 预算让给真正重要的上下文。
+        """
+        # 1. 维护 fitness 滚动窗口 + 计算 z-score
+        self._fitness_window.append(fitness_score)
+        if len(self._fitness_window) > self._fitness_window_size:
+            self._fitness_window.pop(0)
+        win = self._fitness_window
+        if len(win) >= 4:
+            mu = sum(win) / len(win)
+            var = sum((x - mu) ** 2 for x in win) / len(win)
+            sigma = math.sqrt(var) if var > 1e-9 else 1.0
+            z = (fitness_score - mu) / sigma
+        else:
+            # 冷启动: 直接相对 midpoint 比较
+            z = fitness_score - self.fitness_midpoint
+
+        # tanh 把信号压到 [-1, 1], slope 控制陡峭度
+        s = math.tanh(self.fitness_slope * z * 0.25)
+
+        # 2. 密度因子
+        active_nodes = self.graph.get_active_nodes()
+        N = len(active_nodes)
+        K = max(1, self.max_active_nodes)
+        density_factor = 1.0 - N / K  # > 0: 还有空位; <= 0: 拥塞
+
+        r = self.logistic_r
+        active_tools_set = set(mask.get('active_tools', []))
+        active_mem_ids = set(mask.get('active_memory_ids', []))
+
+        if s >= 0:
+            # === 正向选择 ===
+            if density_factor > 0:
+                # 还有空位: 标准 logistic 增长
+                growth = r * s * density_factor
+                for node in self.graph.get_nodes_by_type('tool_schema'):
+                    if node.metadata.get('tool_name') in active_tools_set:
+                        w = node.epigenetic_tag
+                        node.epigenetic_tag = min(1.0, w + growth * w)
+                for node_id in active_mem_ids:
+                    node = self.graph.nodes.get(node_id)
+                    if node is None:
+                        continue
+                    w = node.epigenetic_tag
+                    node.epigenetic_tag = min(1.0, w + growth * w)
+            else:
+                # === 拥塞再分配: 强者更强, 弱者衰减 ===
+                # 让 token 预算流向真正关键的节点。
+                # 注意: acetylation 每轮会粗放地 +0.1~0.2, 这里需要足够强
+                # 才能让差异传导到 payload。用乘性 (1 + α*w*s) 形式。
+                alpha = 1.0  # 再分配强度
+                # (a) 强化掩码内活跃节点 (乘性放大)
+                for node_id in active_mem_ids:
+                    node = self.graph.nodes.get(node_id)
+                    if node is None:
+                        continue
+                    w = node.epigenetic_tag
+                    node.epigenetic_tag = min(1.0, w * (1.0 + alpha * s * w))
+                for node in self.graph.get_nodes_by_type('tool_schema'):
+                    if node.metadata.get('tool_name') in active_tools_set:
+                        w = node.epigenetic_tag
+                        node.epigenetic_tag = min(1.0, w * (1.0 + alpha * s * w))
+                # (b) 衰减活跃节点中 tag 最低的若干条 (竞争失败者)
+                #     直接乘性衰减, 让弱者更弱, 与上面强者形成区分。
+                weakest = sorted(
+                    active_nodes, key=lambda n: n.epigenetic_tag
+                )[: max(1, int(0.2 * K))]
+                for node in weakest:
+                    if node.node_type == 'system':
+                        continue  # system 节点免疫
+                    if node.node_id in active_mem_ids:
+                        continue  # 已强化, 不衰减
+                    if node.metadata.get('tool_name') in active_tools_set:
+                        continue
+                    w = node.epigenetic_tag
+                    # 衰减强度同样随 s 增大, 体现 "选择压力"
+                    node.epigenetic_tag = max(
+                        0.0, w * (1.0 - 0.5 * alpha * s)
+                    )
+        else:
+            # === 负向反馈: 释放生态位, 鼓励探索 ===
+            explore_strength = r * (-s) * max(0.0, density_factor)
+            candidates = [
+                n for n in self.graph.nodes.values()
+                if n.node_type in ('observation', 'thought')
+                and n.epigenetic_tag < 0.3
+            ]
+            limit = max(1, int(0.1 * K))
+            for node in candidates[:limit]:
+                w = node.epigenetic_tag
+                node.epigenetic_tag = min(1.0, w + explore_strength * (1.0 - w))
+
+            if density_factor < 0:
+                decay = r * (-density_factor) * 0.5
+                weakest = sorted(
+                    active_nodes, key=lambda n: n.epigenetic_tag
+                )[: max(1, int(0.05 * K))]
+                for node in weakest:
+                    if node.node_type == 'system':
+                        continue
+                    node.epigenetic_tag = max(0.0, node.epigenetic_tag - decay)
+              if node.metadata.get('tool_name') == tool_name:
                         node.epigenetic_tag = min(1.0, node.epigenetic_tag + 0.1)
         else:
             # 低适应度: 扩大激活范围
@@ -1142,38 +1380,7 @@ class EpiContextRouter:
             ]
             for node in inactive_mem[:5]:
                 node.epigenetic_tag = min(1.0, node.epigenetic_tag + 0.3)
-
-    # ---- Statistics & Serialization ----
-
-    def get_stats(self) -> Dict[str, Any]:
-        """获取路由器统计信息。"""
-        active = self.graph.get_active_nodes()
-        return {
-            'total_nodes': len(self.graph.nodes),
-            'active_nodes': len(active),
-            'methylated_nodes': len(self.graph.nodes) - len(active),
-            'total_edges': len(self.graph.edges),
-            'total_turns': self.current_turn,
-            'consecutive_errors': self.consecutive_errors,
-            'fitness_stats': self.fitness.get_stats(),
-            'methylation_count': len(self.operators.methylation_history),
-            'acetylation_count': len(self.operators.acetylation_history),
-            'crossover_count': len(self.operators.crossover_history),
-        }
-
-    def save_state(self, filepath: str) -> None:
-        """保存路由器状态到文件。"""
-        state = {
-            'graph': self.graph.to_dict(),
-            'current_turn': self.current_turn,
-            'consecutive_errors': self.consecutive_errors,
-            'turn_history': self.turn_history,
-            'fitness_history': self.fitness.evaluation_history,
-            'methylation_history': self.operators.methylation_history,
-            'acetylation_history': self.operators.acetylation_history,
-            'crossover_history': self.operators.crossover_history,
-        }
-        with open(filepath, 'w', encoding='utf-8') as f:
+path, 'w', encoding='utf-8') as f:
             json.dump(state, f, indent=2, ensure_ascii=False, default=str)
 
     @classmethod
