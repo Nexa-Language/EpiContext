@@ -1,5 +1,22 @@
-.venv/
+harbor-framework/
 __pycache__/
 *.pyc
-*.pyo
+.venv/
+jobs/
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
 .DS_Store
+MEGA_PROMPT.md
+ROADMAP.md
+RESTRICTS.yaml
+PROGRESS.md
+paper/
+plans/
+
+# --- Sensitive files ---
+*.key
+*.pem
+.env
