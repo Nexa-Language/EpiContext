@@ -1,0 +1,3 @@
+[submodule "harbor-framework"]
+	path = harbor-framework
+	url = https://github.com/harbor-framework/harbor.git
